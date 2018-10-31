@@ -23,3 +23,6 @@ bash:
 
 start:
 	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME)
+
+push:
+	docker push $(NAME)

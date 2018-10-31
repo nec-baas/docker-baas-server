@@ -2,6 +2,9 @@ PORT_OPTS = -p 28080:8080
 
 VOLUME_OPTS = -v $(PWD)/logs:/opt/tomcat/logs:rw
 
+NAME_API     = necbaas/api-server
+NAME_CONSOLE = necbaas/console-server
+
 all: download api console
 
 download:
@@ -14,25 +17,31 @@ Dockerfile.console: Dockerfile.in
 	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/console/" > Dockerfile.console
 
 api: Dockerfile.api
-	docker build -t necbaas/api-server -f Dockerfile.api .
+	docker build -t $(NAME_API) -f Dockerfile.api .
 
 console: Dockerfile.console
-	docker build -t necbaas/console-server -f Dockerfile.console .
+	docker build -t $(NAME_CONSOLE) -f Dockerfile.console .
 
 clean:
 	-/bin/rm Dockerfile.api Dockerfile.console
 
 rmi:
-	docker rmi necbaas/api-server necbaas/console-server
+	docker rmi $(NAME_API) $(NAME_CONSOLE)
 
-bash:
-	docker run -it --rm necbaas/api-server /bin/bash
+bash-api:
+	docker run -it --rm $(NAME_API) /bin/bash
 
 bash-console:
-	docker run -it --rm necbaas/console-server /bin/bash
+	docker run -it --rm $(NAME_CONSOLE) /bin/bash
 
-start:
-	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) necbaas/api-server
+start-api:
+	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_API)
 
 start-console:
-	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) necbaas/console-server
+	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_CONSOLE)
+
+push-api:
+	docker push $(NAME_API)
+
+push-console:
+	docker push $(NAME_CONSOLE)
