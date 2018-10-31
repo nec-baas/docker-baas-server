@@ -6,7 +6,44 @@ Dockerfile
 
 以下イメージを含む。
 
-* necbaas/openjdk-min : OpenJDK 11
+* necbaas/openjdk : OpenJDK 11
 * necbaas/tomcat : Tomcat 9
 * necbaas/api-server : APIサーバ
 * necbaas/console-server : Consoleサーバ
+
+環境変数
+--------
+
+APIサーバ / Console サーバ実行時には以下の環境変数が参照される。
+
+### Tomcat 関連
+
+* TOMCAT_MAX_THREADS: Tomcat最大スレッド数 (default: 2000)
+* TOMCAT_MAX_CONNECTIONS: Tomcat最大コネクション数 (default: 2000)
+* TOMCAT_SCHEME: Tomcat HTTP connector scheme (default: http)
+* TOMCAT_SECURE: Tomcat HTTP connector secure (default: false)
+* TOMCAT_PROXY_PORT: Tomcat Proxyポート (default: なし)
+
+### MongoDB関連
+
+* MONGO_SERVERS: MongoDBサーバ(default: 127.0.0.1:27017)
+* MONGO_USERNAME: MongoDB認証ユーザ名 (default: なし)
+* MONGO_PASSWORD: MongoDB認証パスワード (default: なし)
+* MONGO_MAX_CONNECTIONS_PER_HOST: MongoDB最大コネクション数/ホスト (default: 200)
+
+### AMQP (RabbitMQ) 関連
+
+* AMQP_ADDR: AMQPサーバアドレス (default: なし)
+* AMQP_USERNAME: AMQP認証ユーザ名 (default: なし)
+* AMQP_PASSWORD: AMQP認証パスワード (default: なし)
+* AMQP_VHOST: AMQP vhost (default: なし)
+* AMQP_URI: AMQP URI (default: なし)
+
+### ロギング
+* LOG_LEVEL: ログレベル (default: INFO)
+* LOG_FLUENT_HOST: fluentd ホスト名 (default: なし)
+* LOG_FLUENT_PORT: fluentd ポート番号 (default: 24224)
+
+### その他
+
+* SYSTEM_NO_CHARGE_KEY: No charge key (default: tC0br8ciFAZmYdUHfS1JeJy4c)
