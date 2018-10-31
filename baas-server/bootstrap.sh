@@ -14,7 +14,6 @@ SYSTEM_NO_CHARGE_KEY=${SYSTEM_NO_CHARGE_KEY:-tC0br8ciFAZmYdUHfS1JeJy4c}
 LOG_LEVEL=${LOG_LEVEL:-INFO}
 LOG_FLUENT_HOST=${LOG_FLUENT_HOST:-}
 LOG_FLUENT_PORT=${LOG_FLUENT_PORT:-24224}
-BAAS_TYPE=${BAAS_TYPE:-both}
 TOMCAT_MAX_THREADS=${TOMCAT_MAX_THREADS:-2000}
 TOMCAT_MAX_CONNECTIONS=${TOMCAT_MAX_CONNECTIONS:-2000}
 TOMCAT_SCHEME=${TOMCAT_SCHEME:-http}
@@ -34,21 +33,6 @@ cat server.template.xml \
     | sed "s/%TOMCAT_SECURE%/$TOMCAT_SECURE/" \
     | sed "s/%TOMCAT_CONN_OTHER_CFGS%/$TOMCAT_CONN_OTHER_CFGS/" \
     > /opt/tomcat/conf/server.xml
-
-# war 配置
-case "$BAAS_TYPE" in
-    "apiOnly" )
-        echo "BAAS_TYPE is apiOnly"
-        rm /opt/tomcat/webapps/console.war
-        ;;
-    "consoleOnly" )
-        echo "BAAS_TYPE is consoleOnly"
-        rm /opt/tomcat/webapps/api.war
-        ;;
-    * )
-        echo "BAAS_TYPE is both"
-        ;;
-esac
 
 # 設定ファイル生成
 if [ -n "$AMQP_ADDR" ]; then
@@ -109,5 +93,4 @@ else
 fi
 
 # tomcat 起動 (foreground)
-#/opt/tomcat/bin/startup.sh && tail -f /opt/tomcat/logs/catalina.out
 /opt/tomcat/bin/catalina.sh run
