@@ -42,26 +42,23 @@ if [ -n "$AMQP_ADDR" ]; then
         | sed 's#<!-- <entry key="amqp.username"></entry> -->#<entry key="amqp.username">%AMQP_USERNAME%</entry>#' \
         | sed 's#<!-- <entry key="amqp.password"></entry> -->#<entry key="amqp.password">%AMQP_PASSWORD%</entry>#' \
         | sed 's#<!-- <entry key="amqp.vhost"></entry> -->#<entry key="amqp.vhost">%AMQP_VHOST%</entry>#' \
-        > /etc/baas/properties.template2.xml
-    cat /etc/baas/properties.template2.xml \
         | sed "s#%AMQP_ADDR%#$AMQP_ADDR#" \
         | sed "s#%AMQP_USERNAME%#$AMQP_USERNAME#" \
         | sed "s#%AMQP_PASSWORD%#$AMQP_PASSWORD#" \
         | sed "s#%AMQP_VHOST%#$AMQP_VHOST#" \
-        > /etc/baas/properties.template.xml
+        > /tmp/properties.template.xml
 elif [ -n "$AMQP_URI" ]; then
     echo "Set AMQP_URI"
     cat /etc/baas/properties.template.xml \
         | sed 's#<!-- <entry key="amqp.uri"></entry> -->#<entry key="amqp.uri">%AMQP_URI%</entry>#' \
-        > /etc/baas/properties.template2.xml
-    cat /etc/baas/properties.template2.xml \
         | sed "s#%AMQP_URI%#$AMQP_URI#" \
-        > /etc/baas/properties.template.xml
+        > /tmp/properties.template.xml
 else
     echo "Not set AMQP"
+    cp /etc/baas/properties.template.xml /tmp/properties.template.xml
 fi
 
-cat /etc/baas/properties.template.xml \
+cat /tmp/properties.template.xml \
     | sed "s#%MONGO_SERVERS%#$MONGO_SERVERS#" \
     | sed "s/%MONGO_USERNAME%/$MONGO_USERNAME/" \
     | sed "s/%MONGO_PASSWORD%/$MONGO_PASSWORD/" \
@@ -72,21 +69,19 @@ cat /etc/baas/properties.template.xml \
 # logback設定ファイル生成
 cat /etc/baas/logback.template.properties \
     | sed "s/%LOG_LEVEL%/$LOG_LEVEL/" \
-    > /etc/baas/logback.template2.properties
+    > /tmp/logback.template1.properties
 
 if [ ! -n "$LOG_FLUENT_HOST" ]; then
     echo "Not set logback.fluent"
-    cat /etc/baas/logback.template2.properties \
+    cat /tmp/logback.template1.properties \
         | sed "s/%LOG_TYPES%/STDOUT,FILE/" \
         > /etc/baas/logback.properties
 else
     echo "Set logback.fluent"
-    cat /etc/baas/logback.template2.properties \
+    cat /tmp/logback.template1.properties \
         | sed "s/%LOG_TYPES%/STDOUT,FILE,FLUENT/" \
-        | sed 's/#logback.fluent.host=%LOG_FLUENT_HOST%/logback.fluent.host=%LOG_FLUENT_HOST%/' \
-        | sed 's/#logback.fluent.port=%LOG_FLUENT_PORT%/logback.fluent.port=%LOG_FLUENT_PORT%/' \
-        > /etc/baas/logback.template.properties
-    cat /etc/baas/logback.template.properties \
+        | sed 's/#logback.fluent.host=/logback.fluent.host=/' \
+        | sed 's/#logback.fluent.port=/logback.fluent.port=/' \
         | sed "s/%LOG_FLUENT_HOST%/$LOG_FLUENT_HOST/" \
         | sed "s/%LOG_FLUENT_PORT%/$LOG_FLUENT_PORT/" \
         > /etc/baas/logback.properties
