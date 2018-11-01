@@ -62,7 +62,7 @@ else
 fi
 
 cat /etc/baas/properties.template.xml \
-    | sed "s/%MONGO_SERVERS%/$MONGO_SERVERS/" \
+    | sed "s#%MONGO_SERVERS%#$MONGO_SERVERS#" \
     | sed "s/%MONGO_USERNAME%/$MONGO_USERNAME/" \
     | sed "s/%MONGO_PASSWORD%/$MONGO_PASSWORD/" \
     | sed "s/%MONGO_MAX_CONNECTIONS_PER_HOST%/$MONGO_MAX_CONNECTIONS_PER_HOST/" \
