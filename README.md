@@ -8,13 +8,23 @@ Dockerfile
 
 * necbaas/openjdk : OpenJDK 11
 * necbaas/tomcat : Tomcat 9
-* necbaas/api-server : APIサーバ
-* necbaas/console-server : Consoleサーバ
+* necbaas/api-server : BaaS APIサーバ
+* necbaas/console-server : BaaS Consoleサーバ
+
+起動例
+------
+
+    $ docker pull necbaas/api-server
+    $ docker run -d -p 8080:8080 -e JAVA_OPTS="-Xmx2048m" -e MONGO_SERVERS=mongodb://mongo1.example.com:27017 necbaas/api-server
 
 環境変数
 --------
 
 APIサーバ / Console サーバ実行時には以下の環境変数が参照される。
+
+### Java 関連
+
+* JAVA_OPTS : Java VM オプション (default: なし)
 
 ### Tomcat 関連
 
@@ -26,7 +36,7 @@ APIサーバ / Console サーバ実行時には以下の環境変数が参照さ
 
 ### MongoDB関連
 
-* MONGO_SERVERS: MongoDBサーバ(default: 127.0.0.1:27017)
+* MONGO_SERVERS: MongoDBサーバURL (default: 127.0.0.1:27017)
 * MONGO_USERNAME: MongoDB認証ユーザ名 (default: なし)
 * MONGO_PASSWORD: MongoDB認証パスワード (default: なし)
 * MONGO_MAX_CONNECTIONS_PER_HOST: MongoDB最大コネクション数/ホスト (default: 200)
