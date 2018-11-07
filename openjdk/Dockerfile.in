@@ -18,7 +18,7 @@ RUN cd /opt \
     && /opt/jdk-${JAVA_VERSION}/bin/jlink \
         --module-path /opt/jdk-${JAVA_VERSION}/jmods \
         --compress=2 \
-        --add-modules java.se,jdk.unsupported \
+        --add-modules java.se,jdk.jdi,jdk.httpserver,jdk.unsupported \
         --no-header-files \
         --no-man-pages \
         --output /opt/jdk-min \
