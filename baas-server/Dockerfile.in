@@ -7,7 +7,8 @@ ADD logback.template.properties /etc/baas/
 ADD server.template.xml /
 
 # Fix permission
-RUN chmod -R ugo+rwx /etc/baas /opt /var/log/baas
+RUN chmod -R ugo+rwx /etc/baas /var/log/baas \
+    /opt/tomcat/conf /opt/tomcat/webapps /opt/tomcat/logs /opt/tomcat/temp /opt/tomcat/work
 
 # Add startup script
 ADD bootstrap.sh /
