@@ -1,6 +1,6 @@
 FROM necbaas/openjdk
 
-ENV TOMCAT_VERSION 9.0.12
+ENV TOMCAT_VERSION 9.0.13
 
 # install tomcat
 RUN mkdir /opt/tomcat && cd /opt/tomcat \
