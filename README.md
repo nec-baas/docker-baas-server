@@ -10,11 +10,12 @@ Dockerfile
 * necbaas/tomcat : Tomcat 9
 * necbaas/api-server : BaaS APIサーバ
 * necbaas/console-server : BaaS Consoleサーバ
+* necbaas/api-console-server : BaaS API + Consoleサーバ
 
 起動例
 ------
 
-    $ docker pull necbaas/api-server
+    $ docker pull necbaas/api-console-server
     $ docker run -d -p 8080:8080 -e JAVA_OPTS="-Xmx2048m" -e MONGO_SERVERS=mongodb://mongo1.example.com:27017 necbaas/api-server
 
 環境変数
