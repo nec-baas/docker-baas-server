@@ -13,25 +13,25 @@ all: api console both
 #download:
 #	@./download.sh
 
-update: api/Dockerfile console/Dockerfile both/Dockerfile
+update: Dockerfile.api Dockerfile.console Dockerfile.both
 
-api/Dockerfile: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/api/" > api/Dockerfile
+Dockerfile.api: Dockerfile.in
+	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/api/" > $@
 
-console/Dockerfile: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/console/" > console/Dockerfile
+Dockerfile.console: Dockerfile.in
+	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/console/" > $@
 
-both/Dockerfile: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/*/" > both/Dockerfile
+Dockerfile.both: Dockerfile.in
+	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/*/" > $@
 
 api:
-	docker build -t $(NAME_API) -f api/Dockerfile .
+	docker build -t $(NAME_API) -f Dockerfile.api .
 
 console:
-	docker build -t $(NAME_CONSOLE) -f console/Dockerfile .
+	docker build -t $(NAME_CONSOLE) -f Dockerfile.console .
 
 both:
-	docker build -t $(NAME_BOTH) -f both/Dockerfile .
+	docker build -t $(NAME_BOTH) -f Dockerfile.both .
 
 rmi:
 	docker rmi $(NAME_API) $(NAME_CONSOLE)
