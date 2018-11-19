@@ -1,5 +1,1 @@
-Dockerfile.api
-Dockerfile.console
-Dockerfile.both
 baas-server*.tar.gz
-

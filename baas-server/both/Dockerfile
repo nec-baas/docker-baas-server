@@ -1,0 +1,26 @@
+FROM necbaas/tomcat
+
+# Add config files
+RUN mkdir /etc/baas /var/log/baas
+ADD properties.template.xml /etc/baas/
+ADD logback.template.properties /etc/baas/
+ADD server.template.xml /
+
+# Fix permission
+RUN chmod -R ugo+rwx /etc/baas /var/log/baas
+
+# Add startup script
+ADD bootstrap.sh /
+RUN chmod +x /bootstrap.sh
+
+# Volume options
+VOLUME ["/opt/tomcat/logs","/var/log/baas"]
+ 
+# Open Tomcat port
+EXPOSE 8080
+
+# Install BaaS Server
+ENV BAAS_VERSION 7.5.0
+ADD files/baas-server-$BAAS_VERSION/server/*.war /opt/tomcat/webapps/
+ 
+CMD /bootstrap.sh

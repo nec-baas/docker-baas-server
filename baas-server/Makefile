@@ -6,31 +6,32 @@ NAME_API     = necbaas/api-server
 NAME_CONSOLE = necbaas/console-server
 NAME_BOTH = necbaas/api-console-server
 
+.PHONY: download api console both
+
 all: download api console both
 
 download:
 	@./download.sh
 
-Dockerfile.api: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/api/" > Dockerfile.api
+update: api/Dockerfile console/Dockerfile both/Dockerfile
 
-Dockerfile.console: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/console/" > Dockerfile.console
+api/Dockerfile: Dockerfile.in
+	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/api/" > api/Dockerfile
 
-Dockerfile.both: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/*/" > Dockerfile.both
+console/Dockerfile: Dockerfile.in
+	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/console/" > console/Dockerfile
 
-api: Dockerfile.api
-	docker build -t $(NAME_API) -f Dockerfile.api .
+both/Dockerfile: Dockerfile.in
+	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/*/" > both/Dockerfile
 
-console: Dockerfile.console
-	docker build -t $(NAME_CONSOLE) -f Dockerfile.console .
+api:
+	docker build -t $(NAME_API) -f api/Dockerfile .
 
-both: Dockerfile.both
-	docker build -t $(NAME_BOTH) -f Dockerfile.both .
+console:
+	docker build -t $(NAME_CONSOLE) -f console/Dockerfile .
 
-clean:
-	-/bin/rm Dockerfile.api Dockerfile.console
+both:
+	docker build -t $(NAME_BOTH) -f both/Dockerfile .
 
 rmi:
 	docker rmi $(NAME_API) $(NAME_CONSOLE)
