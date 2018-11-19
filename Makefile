@@ -25,40 +25,40 @@ Dockerfile.both: Dockerfile.in
 	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/*/" > $@
 
 api:
-	docker build -t $(NAME_API) -f Dockerfile.api .
+	docker image build -t $(NAME_API) -f Dockerfile.api .
 
 console:
-	docker build -t $(NAME_CONSOLE) -f Dockerfile.console .
+	docker image build -t $(NAME_CONSOLE) -f Dockerfile.console .
 
 both:
-	docker build -t $(NAME_BOTH) -f Dockerfile.both .
+	docker image build -t $(NAME_BOTH) -f Dockerfile.both .
 
 rmi:
-	docker rmi $(NAME_API) $(NAME_CONSOLE)
+	docker image rm $(NAME_API) $(NAME_CONSOLE) $(NAME_BOTH)
 
 bash-api:
-	docker run -it --rm $(NAME_API) /bin/bash
+	docker container run -it --rm $(NAME_API) /bin/bash
 
 bash-console:
-	docker run -it --rm $(NAME_CONSOLE) /bin/bash
+	docker container run -it --rm $(NAME_CONSOLE) /bin/bash
 
 bash-both:
-	docker run -it --rm $(NAME_BOTH) /bin/bash
+	docker container run -it --rm $(NAME_BOTH) /bin/bash
 
 start-api:
-	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_API)
+	docker container run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_API)
 
 start-console:
-	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_CONSOLE)
+	docker container run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_CONSOLE)
 
 start-both:
-	docker run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_BOTH)
+	docker container run -d $(PORT_OPTS) $(VOLUME_OPTS) $(NAME_BOTH)
 
 push-api:
-	docker push $(NAME_API)
+	docker image push $(NAME_API)
 
 push-console:
-	docker push $(NAME_CONSOLE)
+	docker image push $(NAME_CONSOLE)
 
 push-both:
-	docker push $(NAME_BOTH)
+	docker image push $(NAME_BOTH)
