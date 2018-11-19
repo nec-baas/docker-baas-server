@@ -6,8 +6,6 @@ Dockerfile
 
 以下イメージを含む。
 
-* necbaas/openjdk : OpenJDK 11
-* necbaas/tomcat : Tomcat 9
 * necbaas/api-server : BaaS APIサーバ
 * necbaas/console-server : BaaS Consoleサーバ
 * necbaas/api-console-server : BaaS API + Consoleサーバ
@@ -23,17 +21,10 @@ Dockerfile
 
 APIサーバ / Console サーバ実行時には以下の環境変数が参照される。
 
-### Java 関連
-
-* JAVA_OPTS : Java VM オプション (default: なし)
-
-### Tomcat 関連
-
-* TOMCAT_MAX_THREADS: Tomcat最大スレッド数 (default: 2000)
-* TOMCAT_MAX_CONNECTIONS: Tomcat最大コネクション数 (default: 2000)
-* TOMCAT_SCHEME: Tomcat HTTP connector scheme (default: http)
-* TOMCAT_SECURE: Tomcat HTTP connector secure (default: false)
-* TOMCAT_PROXY_PORT: Tomcat Proxyポート (default: なし)
+なお、Java, Tomcat 関連については、それぞれ
+[docker-openjdk](https://github.com/nec-baas/docker-openjdk)
+[docker-tomcat](https://github.com/nec-baas/docker-tomcat)
+を参照のこと。
 
 ### MongoDB関連
 
