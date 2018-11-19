@@ -21,6 +21,10 @@ EXPOSE 8080
 
 # Install BaaS Server
 ENV BAAS_VERSION 7.5.0
-ADD files/baas-server-$BAAS_VERSION/server/api.war /opt/tomcat/webapps/
+RUN cd /opt \
+    && wget --no-check-certificate https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/baas-server-$BAAS_VERSION.tar.gz \
+    && tar xzf baas-server-$BAAS_VERSION.tar.gz \
+    && cp baas-server-$BAAS_VERSION/server/api.war /opt/tomcat/webapps/ \
+    && /bin/rm -rf baas-server-$BAAS_VERSION*
  
 CMD /bootstrap.sh

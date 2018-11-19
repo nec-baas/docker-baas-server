@@ -6,12 +6,12 @@ NAME_API     = necbaas/api-server
 NAME_CONSOLE = necbaas/console-server
 NAME_BOTH = necbaas/api-console-server
 
-.PHONY: download api console both
+.PHONY: api console both
 
-all: download api console both
+all: api console both
 
-download:
-	@./download.sh
+#download:
+#	@./download.sh
 
 update: api/Dockerfile console/Dockerfile both/Dockerfile
 
