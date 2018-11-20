@@ -27,4 +27,4 @@ RUN cd /opt \
     && cp baas-server-$BAAS_VERSION/server/%%SERVER_TYPE%%.war /opt/tomcat/webapps/ \
     && /bin/rm -rf baas-server-$BAAS_VERSION*
  
-CMD /bootstrap.sh
+CMD ["/bootstrap.sh"]

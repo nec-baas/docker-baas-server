@@ -88,4 +88,4 @@ else
 fi
 
 # tomcat 起動 (foreground)
-/opt/tomcat/bin/catalina.sh run
+exec /opt/tomcat/bin/catalina.sh run
