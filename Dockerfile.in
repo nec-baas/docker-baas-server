@@ -1,5 +1,13 @@
 FROM necbaas/tomcat
 
+# Install BaaS Server
+ENV BAAS_VERSION 7.5.0
+RUN cd /opt \
+    && wget --no-check-certificate https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/baas-server-$BAAS_VERSION.tar.gz \
+    && tar xzf baas-server-$BAAS_VERSION.tar.gz \
+    && cp baas-server-$BAAS_VERSION/server/%%SERVER_TYPE%%.war /opt/tomcat/webapps/ \
+    && /bin/rm -rf baas-server-$BAAS_VERSION*
+
 # Add config files
 RUN mkdir /etc/baas /var/log/baas
 ADD properties.template.xml /etc/baas/
@@ -19,12 +27,4 @@ VOLUME ["/opt/tomcat/logs","/var/log/baas"]
 # Open Tomcat port
 EXPOSE 8080
 
-# Install BaaS Server
-ENV BAAS_VERSION 7.5.0
-RUN cd /opt \
-    && wget --no-check-certificate https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/baas-server-$BAAS_VERSION.tar.gz \
-    && tar xzf baas-server-$BAAS_VERSION.tar.gz \
-    && cp baas-server-$BAAS_VERSION/server/%%SERVER_TYPE%%.war /opt/tomcat/webapps/ \
-    && /bin/rm -rf baas-server-$BAAS_VERSION*
- 
 CMD ["/bootstrap.sh"]
