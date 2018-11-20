@@ -68,12 +68,12 @@
     -->
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               maxConnections="%TOMCAT_MAX_CONNECTIONS%"
-               maxThreads="%TOMCAT_MAX_THREADS%"
+               maxConnections="$TOMCAT_MAX_CONNECTIONS"
+               maxThreads="$TOMCAT_MAX_THREADS"
                redirectPort="8443"
-               scheme="%TOMCAT_SCHEME%"
-               secure="%TOMCAT_SECURE%"
-               %TOMCAT_CONN_OTHER_CFGS%
+               scheme="$TOMCAT_SCHEME"
+               secure="$TOMCAT_SECURE"
+               $TOMCAT_CONN_OTHER_CFGS
                />
     <!-- A "Connector" using the shared thread pool-->
     <!--
