@@ -13,17 +13,6 @@ all: api console both
 #download:
 #	@./download.sh
 
-update: Dockerfile.api Dockerfile.console Dockerfile.both
-
-Dockerfile.api: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/api/" > $@
-
-Dockerfile.console: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/console/" > $@
-
-Dockerfile.both: Dockerfile.in
-	@cat Dockerfile.in | sed "s/%%SERVER_TYPE%%/*/" > $@
-
 api:
 	docker image build -t $(NAME_API) -f Dockerfile.api .
 
