@@ -3,8 +3,8 @@ FROM necbaas/tomcat
 # Install BaaS Server
 ENV BAAS_VERSION 7.5.1
 RUN cd /opt/tomcat/webapps \
-    && wget --no-check-certificate https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/api.war \
-    && wget --no-check-certificate https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/console.war
+    && aria2c -x10 --check-certificate=false https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/api.war \
+    && aria2c -x10 --check-certificate=false https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/console.war
 
 # Add config files
 RUN mkdir /etc/baas /var/log/baas
