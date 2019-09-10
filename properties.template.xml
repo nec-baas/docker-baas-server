@@ -5,7 +5,7 @@
     <entry key="api.internalBaseUrl">$API_INTERNAL_BASE_URL</entry>
     <entry key="console.baseUrl">$CONSOLE_BASE_URL</entry>
 
-    <entry key="mongo.servers">$MONGO_SERVERS</entry>
+    <entry key="mongo.servers"><![CDATA[$MONGO_SERVERS]]></entry>
     <entry key="mongo.username">$MONGO_USERNAME</entry>
     <entry key="mongo.password">$MONGO_PASSWORD</entry>
     <entry key="mongo.maxConnectionsPerHost">$MONGO_MAX_CONNECTIONS_PER_HOST</entry>
