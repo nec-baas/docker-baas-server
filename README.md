@@ -35,7 +35,7 @@ APIサーバ / Console サーバ実行時には以下の環境変数が参照さ
 
 ### AMQP (RabbitMQ) 関連
 
-* AMQP_ADDR: AMQPサーバアドレス (default: なし)
+* AMQP_ADDRS: AMQPサーバアドレス (default: なし)
 * AMQP_USERNAME: AMQP認証ユーザ名 (default: なし)
 * AMQP_PASSWORD: AMQP認証パスワード (default: なし)
 * AMQP_VHOST: AMQP vhost (default: なし)

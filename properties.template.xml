@@ -10,11 +10,11 @@
     <entry key="mongo.password">$MONGO_PASSWORD</entry>
     <entry key="mongo.maxConnectionsPerHost">$MONGO_MAX_CONNECTIONS_PER_HOST</entry>
 
-    <entry key="amqp.addrs">$AMQP_ADDR</entry>
+    <entry key="amqp.addrs">$AMQP_ADDRS</entry>
     <entry key="amqp.username">$AMQP_USERNAME</entry>
     <entry key="amqp.password">$AMQP_PASSWORD</entry>
     <entry key="amqp.vhost">$AMQP_VHOST</entry>
-    <entry key="amqp.uri">$AMQP_UI</entry>
+    <entry key="amqp.uri">$AMQP_URI</entry>
 
     <entry key="system.noChargeKey">$SYSTEM_NO_CHARGE_KEY</entry>
 </properties>
