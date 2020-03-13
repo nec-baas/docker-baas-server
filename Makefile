@@ -2,9 +2,11 @@ PORT_OPTS = -p 28080:8080
 
 VOLUME_OPTS = -v $(PWD)/logs:/opt/tomcat/logs:rw
 
-NAME_API     = necbaas/api-server
-NAME_CONSOLE = necbaas/console-server
-NAME_BOTH = necbaas/api-console-server
+VERSION = 7.5.3
+
+NAME_API     = necbaas/api-server:$(VERSION)
+NAME_CONSOLE = necbaas/console-server:$(VERSION)
+NAME_BOTH = necbaas/api-console-server:$(VERSION)
 
 .PHONY: api console both
 

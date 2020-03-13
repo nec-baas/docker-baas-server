@@ -1,4 +1,4 @@
-FROM necbaas/tomcat
+FROM necbaas/tomcat:latest
 
 # Install BaaS Server
 ENV BAAS_VERSION 7.5.3
