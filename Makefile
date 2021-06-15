@@ -8,6 +8,8 @@ NAME_API     = necbaas/api-server:$(VERSION)
 NAME_CONSOLE = necbaas/console-server:$(VERSION)
 NAME_BOTH = necbaas/api-console-server:$(VERSION)
 
+PROXY = --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(http_proxy)
+
 .PHONY: api console both
 
 all: api console both
@@ -16,13 +18,13 @@ all: api console both
 #	@./download.sh
 
 api:
-	docker image build -t $(NAME_API) -f Dockerfile.api .
+	docker image build $(PROXY) -t $(NAME_API) -f Dockerfile.api .
 
 console:
-	docker image build -t $(NAME_CONSOLE) -f Dockerfile.console .
+	docker image build $(PROXY) -t $(NAME_CONSOLE) -f Dockerfile.console .
 
 both:
-	docker image build -t $(NAME_BOTH) -f Dockerfile.both .
+	docker image build $(PROXY) -t $(NAME_BOTH) -f Dockerfile.both .
 
 rmi:
 	docker image rm $(NAME_API) $(NAME_CONSOLE) $(NAME_BOTH)
