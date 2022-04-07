@@ -1,7 +1,7 @@
-FROM necbaas/tomcat:9.0.52
+FROM necbaas/tomcat:9.0.62
 
 # Install BaaS Server
-ENV BAAS_VERSION 7.5.4
+ENV BAAS_VERSION 7.5.6
 RUN cd /opt/tomcat/webapps \
     && aria2c -x10 --check-certificate=false https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/api.war \
     && aria2c -x10 --check-certificate=false https://github.com/nec-baas/baas-server/releases/download/v$BAAS_VERSION/console.war

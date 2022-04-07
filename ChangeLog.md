@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 2022-04-07 : ver 7.5.6
+
+- Update baas server: 7.5.6
+- Update tomcat 9.0.62
+
 ## 2021-09-05 : ver 7.5.4
 
 - Update baas server: 7.5.4
